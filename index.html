@@ -5,6 +5,8 @@
    			crossorigin=""/>
 	     <link rel = "stylesheet" href="css/style.css">
 	     <title> Air Quality </title> 
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 
 	<body>
@@ -15,5 +17,147 @@
    	          integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
    	          crossorigin=""></script>
 	     <script src="js/script.js"></script>
+		
+	
+		 <div id="map"></div>
+  
+  
+		<div id="app">
+			<input v-model="lat" placeholder="Enter Latitude" id="lat"/><br>
+			<input v-model="lon" placeholder="Enter Longitude" id="lon"/><br>
+			<button type="button" onclick="callFunc()"> Update </button><br>
+			
+			<p>{{ lat }}</p>
+			<p>{{ lon }}</p>
+			
+		</div>
+		
+		
+		<div id="data">
+			<table id="table">
+				<tr id="row">
+					<th id="column">
+					</th>
+				</tr>
+			</table>
+		</div>
 	</body>
+
+
+<script>
+		new Vue({ 
+			el: '#app',
+				data: {   
+					lat: '48.86',  
+					lon: '2.35'
+				}
+		});
+
+
+</script>
+
+
+
+<script type="text/javascript"> 
+   
+
+				
+				
+		var callFunc = function(){
+		
+		
+		/*
+			var table = document.createElement("table");
+			parent.appendChild(table);
+		
+			var parent = document.getElementById("div");
+			var child = document.getElementById("table");
+			parent.removeChild(child);
+		
+		*/
+		
+		
+
+		
+		
+		
+		
+		
+			var lat = document.getElementById("lat").value;
+			console.log(lat);
+			var lon = document.getElementById("lon").value;
+			console.log(lon);
+			var url = "https://api.openaq.org/v1/measurements?coordinates=" + lat + "," + lon + "&radius=2500";
+		
+			var p = GetJSON(url);
+			p.then(results => {
+				console.log(results);
+
+						for(i=0; i<results.results.length; i++){
+						
+						
+						
+						
+
+						
+						
+							var newRow = document.createElement("TR");
+							var text = document.createTextNode(results.results[i].location);
+						//	newRow.appendChild(text);
+						//	document.getElementById("row").appendChild(newRow);
+							
+						
+							var newColumn = document.createElement("TH");
+							
+								var text1 = document.createTextNode(results.results[i].city + "   ");
+								var text2 = document.createTextNode(results.results[i].coordinates.latitude + "   ");
+								var text9 = document.createTextNode(results.results[i].coordinates.longitude + "   ");
+								var text3 = document.createTextNode(results.results[i].country + "   ");
+								var text4 = document.createTextNode(results.results[i].date.utc + "   ");
+								var text5 = document.createTextNode(results.results[i].location + "   ");
+								var text6 = document.createTextNode(results.results[i].parameter + "   ");
+								var text7 = document.createTextNode(results.results[i].unit + "   ");
+								var text8 = document.createTextNode(results.results[i].value + "   ");
+								newRow.appendChild(text1);
+								newRow.appendChild(text2);
+								newRow.appendChild(text9);
+								newRow.appendChild(text3);
+								newRow.appendChild(text4);
+								newRow.appendChild(text5);
+								newRow.appendChild(text6);
+								newRow.appendChild(text7);
+								newRow.appendChild(text8);
+							
+							document.getElementById("row").appendChild(newRow);
+							
+							
+							
+						//	var text2 = document.createTextNode(results.results[i].country);
+						//	newColumn.appendChild(text2);
+						//	document.getElementById("column").appendChild(newColumn);
+						
+						
+				}
+			});
+			}
+			
+			
+			function GetJSON(url){
+			var p = new Promise((resolve, reject) => {
+				var req = new XMLHttpRequest();
+				req.onreadystatechange = function(){
+					if(req.readyState == 4 && req.status == 200){
+						var data = JSON.parse(req.response);
+						resolve(data);
+					}
+					else if(req.readyState == 4){
+						reject("Error:" + req.status);
+					}
+				};
+				req.open("GET", url, true);
+				req.send();
+			});
+			return p;
+			}
+</script>
 </html>
