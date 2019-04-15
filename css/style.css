@@ -22,6 +22,7 @@
   		padding: 0;
   		overflow: hidden;
   		background-color: #ffb8a0;
+		position:top;
 	}
 	li a{
  		display: block;
