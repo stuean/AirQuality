@@ -16,6 +16,12 @@
 		background-color: #ffd19f;
 		margin: 0;
 	}
+	table{
+		border-collapse: collapse;
+	}
+	table, td{
+		border: 1px solid black;
+	}
 	ul{
   		list-style-type: none;
   		margin: 0;
