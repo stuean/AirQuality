@@ -23,7 +23,7 @@ var callFunc = function(){
 	for(i=0; i<results.results.length; i++){
 		var newRow = document.createElement("tr");
 		var newData = document.createElement("td");
-		var text = document.createTextNode(results.results[i].location);
+		var text10 = document.createTextNode(results.results[i].location);
 		var newData1 = document.createElement("td");
 		var text1 = document.createTextNode(results.results[i].city + "   ");
 		var newData2 = document.createElement("td");
@@ -71,9 +71,13 @@ var callFunc = function(){
 				vm.lat = map.getCenter().lat;
 				vm.lon = map.getCenter().lng;
 				getRadius();
+				console.log(vm.radius);
 				var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + vm.radius;
 				var p = GetJSON(url);
-			}, 200);
+				p.then(results => {
+					console.log(results);
+				});
+			}, 1000);
 		});
 		map2.on('dragend', function(){
 			setTimeout(function(){
@@ -82,7 +86,7 @@ var callFunc = function(){
 				getRadius2();
 				var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + vm.radius2;	
 				var p = GetJSON(url);
-			}, 200);
+			}, 1000);
 		});
    
    
