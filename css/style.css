@@ -20,19 +20,20 @@
 		border-collapse: collapse;
 	}
 	table, td{
-		border: 1px solid black;
+		border: 1px solid #000000;
 	}
 	ul{
   		list-style-type: none;
   		margin: 0;
   		padding: 0;
   		overflow: hidden;
-  		background-color: #ffb8a0;
+  		background-color: #30302f;
 		position:top;
 	}
 	li a{
+		font-size: 1.5em;
  		display: block;
- 		color: #4642ba;
+ 		color: #ffffff;
  		padding: 14px 16px;
  		text-decoration: none;
  	}
@@ -41,8 +42,8 @@
  		float: left;
  	}
  	li a.active{
- 		background-color: #ebccff;
+ 		background-color: #26c5ff;
  	}
  	li a:hover:not(.active){
- 		background-color: #8ad1e6;
+ 		background-color: #6dd8ff;
  	}
