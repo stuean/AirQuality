@@ -10,12 +10,28 @@
    	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map2);
 	
+
+	var vm = new Vue({ 
+		el: '#app',
+		data: {   
+			lat: map.getCenter().lat,  
+			lon: map.getCenter().lng,
+			lat2: map2.getCenter().lat,
+			lon2: map2.getCenter().lng,
+			loc: 'a',
+			loc2: 'b',
+			radius: '356177.86',
+			radius2: '356177.86'
+		}
+	});
+	
+	
+	
 var callFunc = function(){
-	var lat = document.getElementById("lat").value;
-	console.log(lat);
-	var lon = document.getElementById("lon").value;
-	console.log(lon);
-	var url = "https://api.openaq.org/v1/measurements?coordinates=" + lat + "," + lon + "&radius=2500";
+	map.panTo([vm.lat, vm.lon], 13);
+	getRadius();
+	console.log(vm.radius);
+	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + vm.radius;
 
 	var p = GetJSON(url);
 	p.then(results => {
@@ -65,6 +81,92 @@ var callFunc = function(){
 			}
 		});
 		}
+
+		map.on('dragend', function(){
+			setTimeout(function(){
+				vm.lat = map.getCenter().lat;
+				vm.lon = map.getCenter().lng;
+				getRadius();
+				var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + vm.radius;
+				var p = GetJSON(url);
+			}, 200);
+		});
+		map2.on('dragend', function(){
+			setTimeout(function(){
+				vm.lat2 = map2.getCenter().lat;
+				vm.lon2 = map2.getCenter().lng;
+				getRadius2();
+				var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + vm.radius2;	
+				var p = GetJSON(url);
+			}, 200);
+		});
+   
+   
+	//	var marker = L.marker([55, 5]).addTo(map);
+	//	marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+   
+
+   
+		var callFunc2 = function(){
+	
+			map2.panTo([vm.lat2, vm.lon2], 13);
+			getRadius2();
+			
+			var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + vm.radius2;
+		
+			var p = GetJSON(url);
+		}
+				
+				
+
+			
+		function getRadius(){
+			var northEastLat = map.getBounds()._northEast.lat;
+			var northEastLon = map.getBounds()._northEast.lng;				
+			var southWestLat = map.getBounds()._southWest.lat;
+			var southWestLon = map.getBounds()._southWest.lng;
+						
+			var lat1 = northEastLat*Math.PI/180;
+			var lon1 = northEastLon*Math.PI/180;
+			var lat2 = southWestLat*Math.PI/180;
+			var lon2 = southWestLon*Math.PI/180;
+		
+			var dLat = southWestLat-northEastLat;
+			var dLon = southWestLon-northEastLon;
+
+			var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon/2) * Math.sin(dLon/2)
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+			var distance = 3958.8 * c;
+			var radius = distance/2;
+			var radiusMeters = radius * 1609.34;
+			vm.radius = radiusMeters;
+		}
+			
+		function getRadius2(){
+			var northEastLat = map2.getBounds()._northEast.lat;
+			var northEastLon = map2.getBounds()._northEast.lng;
+			var southWestLat = map2.getBounds()._southWest.lat;
+			var southWestLon = map2.getBounds()._southWest.lng;
+						
+			var lat1 = northEastLat*Math.PI/180;
+			var lon1 = northEastLon*Math.PI/180;
+			var lat2 = southWestLat*Math.PI/180;
+			var lon2 = southWestLon*Math.PI/180;
+		
+			var dLat = southWestLat-northEastLat;
+			var dLon = southWestLon-northEastLon;
+	
+			var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon/2) * Math.sin(dLon/2)
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+			var distance = 3958.8 * c;
+			var radius = distance/2;
+			console.log(radius);
+			var radiusMeters = radius * 1609.34;
+			console.log(radiusMeters);
+			vm.radius2 = radiusMeters;
+		}
+	
+			
 		function GetJSON(url){
 		var p = new Promise((resolve, reject) => {
 			var req = new XMLHttpRequest();
