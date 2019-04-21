@@ -57,5 +57,20 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</body>
 
+	<script>
+		var vm = new Vue({ 
+		el: '#app',
+		data: {   
+			lat: map.getCenter().lat,  
+			lon: map.getCenter().lng,
+			lat2: map2.getCenter().lat,
+			lon2: map2.getCenter().lng,
+			loc: 'a',
+			loc2: 'b',
+			radius: '356177.86',
+			radius2: '356177.86'
+		}
+	});
+	</script>
 
 </html>

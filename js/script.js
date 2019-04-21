@@ -9,23 +9,7 @@
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
    	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map2);
-	
 
-	var vm = new Vue({ 
-		el: '#app',
-		data: {   
-			lat: map.getCenter().lat,  
-			lon: map.getCenter().lng,
-			lat2: map2.getCenter().lat,
-			lon2: map2.getCenter().lng,
-			loc: 'a',
-			loc2: 'b',
-			radius: '356177.86',
-			radius2: '356177.86'
-		}
-	});
-	
-	
 	
 var callFunc = function(){
 	map.panTo([vm.lat, vm.lon], 13);
