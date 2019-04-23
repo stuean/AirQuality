@@ -18,6 +18,11 @@ var callFunc = function(){
 	var rad = vm.radius;
 	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad;
 
+	var tableCheck = document.getElementById("table");
+	if(tableCheck.rows.length > 1){
+		table.innerHTML = "";
+	}
+
 	var p = GetJSON(url);
 	p.then(results => {
 	console.log(results);
@@ -62,7 +67,7 @@ var callFunc = function(){
 		newData8.appendChild(text8);
 		newRow.appendChild(newData8);
 						
-		document.getElementById("row").appendChild(newRow);	
+		document.getElementById("table").appendChild(newRow);	
 		
 		var marker = L.marker([results.results[i].coordinates.latitude, results.results[i].coordinates.longitude]).addTo(map);
 		marker.bindPopup(results.results[i].city);
@@ -78,6 +83,11 @@ var callFunc = function(){
 			var rad2 = vm.radius2;
 			var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2;
 			console.log(rad2);
+			
+			var tableCheck = document.getElementById("table2");
+			if(tableCheck.rows.length > 1){
+				table2.innerHTML = "";
+			}
 		
 			var p = GetJSON(url);
 			p.then(results => {
@@ -123,7 +133,7 @@ var callFunc = function(){
 				newData8.appendChild(text8);
 				newRow.appendChild(newData8);
 						
-				document.getElementById("row").appendChild(newRow);	
+				document.getElementById("table2").appendChild(newRow);	
 				
 				var marker2 = L.marker([results.results[i].coordinates.latitude, results.results[i].coordinates.longitude]).addTo(map2);
 				marker2.bindPopup(results.results[i].city);
@@ -146,6 +156,10 @@ var callFunc = function(){
 				console.log(vm.radius);
 				var rad = vm.radius;
 				var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad;
+			var tableCheck = document.getElementById("table");
+			if(tableCheck.rows.length > 1){
+				table.innerHTML = "";
+			}		
 				var p = GetJSON(url);
 				p.then(results => {
 			console.log(results);
@@ -211,6 +225,13 @@ var callFunc = function(){
 				getRadius2();
 				var rad2 = vm.radius2;
 				var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2;	
+				
+				var tableCheck = document.getElementById("table2");
+				if(tableCheck.rows.length > 1){
+					table2.innerHTML = "";
+				}
+				
+				
 				var p = GetJSON(url);
 				p.then(results => {
 			console.log(results);
@@ -255,7 +276,7 @@ var callFunc = function(){
 				newData8.appendChild(text8);
 				newRow.appendChild(newData8);
 						
-				document.getElementById("row").appendChild(newRow);	
+				document.getElementById("table2").appendChild(newRow);	
 				
 				var marker2 = L.marker([results.results[i].coordinates.latitude, results.results[i].coordinates.longitude]).addTo(map2);
 				marker2.bindPopup(results.results[i].city);
