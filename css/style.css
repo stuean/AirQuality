@@ -1,3 +1,9 @@
+	#input-one{
+		float: left;
+	}
+	#input-two{
+		float: right;
+	}
 	#map{
 		float: left;
 		height: 700px;
@@ -11,6 +17,12 @@
 	   	width: 700px;
 	   	margin: 50px;
 	   	margin-right: 150px;
+	}
+	#table{
+		float: left;
+	}
+	#table2{
+		float: right;
 	}
 	body{
 		background-color: #ffd19f;
