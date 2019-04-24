@@ -38,14 +38,33 @@
 			<input v-model="lon2" placeholder="Enter Longitude" id="lon2"/><br>
 			<input v-model="loc2" placeholder="Enter Location" id="loc2"/><br>
 			<button type="button" onclick="callFunc2()"> Update </button><br>
-			
-			
-			
 		</div>
 		
 		
 		<div id="data">
 			<table id="table">
+			</table>
+		</div>
+		<div id="hazardKey">
+			<table>
+				<tr id = "green">
+					<td>Good</td>
+				</tr>
+				<tr id = "yellow">
+					<td>Moderate</td>
+				</tr>
+				<tr id = "orange">
+					<td>Unhealthy for Sensitive Groups</td>
+				</tr>
+				<tr id = "red">
+					<td>Unhealthy</td>
+				</tr>
+				<tr id = "purple">
+					<td>Very Unhealthy</td>
+				</tr>
+				<tr id = "maroon">
+					<td>Hazardous</td>
+				</tr>
 			</table>
 		</div>
 		<div id="data2">
