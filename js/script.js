@@ -15,7 +15,7 @@ var callFunc = function(){
 	map.panTo([vm.lat, vm.lon], 13);
 	getRadius();
 	var rad = vm.radius;
-	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&date_from=2019-3-24&limit=1000";
+	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&date_from=2019-3-24&limit=500";
 	var tableCheck = document.getElementById("table");
 	if(tableCheck.rows.length > 1){
 		table.innerHTML = "";
@@ -144,7 +144,7 @@ var callFunc2 = function(){
 	map2.panTo([vm.lat2, vm.lon2], 13);
 	getRadius2();
 	var rad2 = vm.radius2;
-	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2 + "&date_from=2019-3-24&limit=1000";
+	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2 + "&date_from=2019-3-24&limit=500";
 	
 			
 	var tableCheck = document.getElementById("table2");
@@ -281,7 +281,7 @@ map.on('dragend', function(){
 		vm.lon = map.getCenter().lng;
 		getRadius();
 		var rad = vm.radius;
-		var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&date_from=2019-3-24&limit=1000";
+		var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&date_from=2019-3-24&limit=500";
 		var tableCheck = document.getElementById("table");
 		if(tableCheck.rows.length > 1){
 			table.innerHTML = "";
@@ -410,7 +410,7 @@ map2.on('dragend', function(){
 		vm.lon2 = map2.getCenter().lng;
 		getRadius2();
 		var rad2 = vm.radius2;
-		var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2 + "&date_from=2019-3-24&limit=1000";	
+		var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2 + "&date_from=2019-3-24&limit=500";	
 			
 		var tableCheck = document.getElementById("table2");
 		if(tableCheck.rows.length > 1){
