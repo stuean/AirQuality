@@ -27,12 +27,12 @@
 		<div id="app">
 			<input v-model="lat" placeholder="Enter Latitude" id="lat"/><br>
 			<input v-model="lon" placeholder="Enter Longitude" id="lon"/><br>
-			<input v-model="loc" placeholder="Enter Location" id="loc"/><br>
+			<input v-model="pType" placeholder="Particle Type" id="pType"/><br>
 			<button type="button" onclick="callFunc()"> Update </button><br>
 			
 			<input v-model="lat2" placeholder="Enter Latitude" id="lat2"/><br>
 			<input v-model="lon2" placeholder="Enter Longitude" id="lon2"/><br>
-			<input v-model="loc2" placeholder="Enter Location" id="loc2"/><br>
+			<input v-model="pType2" placeholder="Particle Type" id="pType2"/><br>
 			<button type="button" onclick="callFunc2()"> Update </button><br>
 		</div>
 		
@@ -81,8 +81,8 @@
 			lon: map.getCenter().lng,
 			lat2: map2.getCenter().lat,
 			lon2: map2.getCenter().lng,
-			loc: 'a',
-			loc2: 'b',
+			pType: '',
+			pType2: '',
 			radius: '356177.86',
 			radius2: '356177.86'
 		}
