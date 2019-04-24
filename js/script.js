@@ -18,6 +18,9 @@ var callFunc = function(){
 	var rad = vm.radius;
 	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad;
 
+	var parameters = ["pm10", "no2", "co", "o3", "so2", "pm25"];
+	var parameterSwitch = parameters.includes(vm.pType);
+	
 	var tableCheck = document.getElementById("table");
 	if(tableCheck.rows.length > 1){
 		table.innerHTML = "";
@@ -60,85 +63,170 @@ var callFunc = function(){
 			newData5.appendChild(text5);
 			newRow.appendChild(newData5);
 			newData6.appendChild(text6);
-			newRow.appendChild(newData6);
-			newData7.appendChild(text7);
-			newRow.appendChild(newData7);
-			newData8.appendChild(text8);
-			if(results.results[i].value >= 0 && results.results[i].value <= 50){
-				newData8.style.backgroundColor = "green";
-			}else if(results.results[i].value >= 51 && results.results[i].value <= 100){
-				newData8.style.backgroundColor = "yellow";
-			}else if(results.results[i].value >= 101 && results.results[i].value <= 150){
-				newData8.style.backgroundColor = "orange";
-			}else if(results.results[i].value >= 151 && results.results[i].value <= 200){
-				newData8.style.backgroundColor = "red";
-			}else if(results.results[i].value >= 201 && results.results[i].value <= 300){
-				newData8.style.backgroundColor = "purple";
-				newData8.style.color = "white";
-			}else{
-				newData8.style.backgroundColor = "maroon";
-				newData8.style.color = "white";
-			}
-			newRow.appendChild(newData8);
-						
-			document.getElementById("table").appendChild(newRow);	
-		
-			url2 = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&city=" + results.results[i].city;
-			var res = results;
-			p = GetJSON(url2);
-			p.then(function(results){
-				var pm25 = 0;
-				var countPM25 = 0;
-				var pm10 = 0;
-				var countPM10 = 0;
-				var so2 = 0;
-				var countSO2 = 0;
-				var no2 = 0;
-				var countNO2 = 0;
-				var o3 = 0;
-				var countO3 = 0;
-				var co = 0;
-				var countCO = 0;
-				var bc = 0;
-				var countBC = 0;
-				for(j=0; j<results.results.length; j++){
-					if(results.results[j].parameter == "pm25"){
-						pm25 = pm25 + results.results[j].value;
-						countPM25 = countPM25 + 1;	
-					}
-					if(results.results[j].parameter == "pm10"){
-						pm10 = pm10 + results.results[j].value;
-						countPM10 = countPM10 + 1;	
-					}
-					if(results.results[j].parameter == "so2"){
-						so2 = so2 + results.results[j].value;
-						countSO2 = countSO2 + 1;	
-					}
-					if(results.results[j].parameter == "no2"){
-						no2 = no2 + results.results[j].value;
-						countNO2 = countNO2 + 1;	
-					}
-					if(results.results[j].parameter == "o3"){
-						o3 = o3 + results.results[j].value;
-						countO3 = countO3 + 1;	
-					}
-					if(results.results[j].parameter == "co"){
-						co = co + results.results[j].value;
-						countCO = countCO + 1;	
-					}
-					if(results.results[j].parameter == "bc"){
-						bc = bc + results.results[j].value;
-						countBC = countBC + 1;	
-					}
+			if(parameterSwitch == true){
+				if(vm.pType == results.results[i].parameter)
+				{
+				newRow.appendChild(newData6);
+				newData7.appendChild(text7);
+				newRow.appendChild(newData7);
+				newData8.appendChild(text8);
+				if(results.results[i].value >= 0 && results.results[i].value <= 50){
+					newData8.style.backgroundColor = "green";
+				}else if(results.results[i].value >= 51 && results.results[i].value <= 100){
+					newData8.style.backgroundColor = "yellow";
+				}else if(results.results[i].value >= 101 && results.results[i].value <= 150){
+					newData8.style.backgroundColor = "orange";
+				}else if(results.results[i].value >= 151 && results.results[i].value <= 200){
+					newData8.style.backgroundColor = "red";
+				}else if(results.results[i].value >= 201 && results.results[i].value <= 300){
+					newData8.style.backgroundColor = "purple";
+					newData8.style.color = "white";
+				}else{
+					newData8.style.backgroundColor = "maroon";
+					newData8.style.color = "white";
 				}
-				x=x+1;	
-				var marker = L.marker([res.results[x].coordinates.latitude, res.results[x].coordinates.longitude]).addTo(map);
-				marker.bindPopup(res.results[x].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
-			
+				newRow.appendChild(newData8);
 
-			}, x, res);
+				document.getElementById("table").appendChild(newRow);	
+
+				url2 = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&city=" + results.results[i].city;
+				var res = results;
+				p = GetJSON(url2);
+				p.then(function(results){
+					var pm25 = 0;
+					var countPM25 = 0;
+					var pm10 = 0;
+					var countPM10 = 0;
+					var so2 = 0;
+					var countSO2 = 0;
+					var no2 = 0;
+					var countNO2 = 0;
+					var o3 = 0;
+					var countO3 = 0;
+					var co = 0;
+					var countCO = 0;
+					var bc = 0;
+					var countBC = 0;
+					for(j=0; j<results.results.length; j++){
+						if(results.results[j].parameter == "pm25"){
+							pm25 = pm25 + results.results[j].value;
+							countPM25 = countPM25 + 1;	
+						}
+						if(results.results[j].parameter == "pm10"){
+							pm10 = pm10 + results.results[j].value;
+							countPM10 = countPM10 + 1;	
+						}
+						if(results.results[j].parameter == "so2"){
+							so2 = so2 + results.results[j].value;
+							countSO2 = countSO2 + 1;	
+						}
+						if(results.results[j].parameter == "no2"){
+							no2 = no2 + results.results[j].value;
+							countNO2 = countNO2 + 1;	
+						}
+						if(results.results[j].parameter == "o3"){
+							o3 = o3 + results.results[j].value;
+							countO3 = countO3 + 1;	
+						}
+						if(results.results[j].parameter == "co"){
+							co = co + results.results[j].value;
+							countCO = countCO + 1;	
+						}
+						if(results.results[j].parameter == "bc"){
+							bc = bc + results.results[j].value;
+							countBC = countBC + 1;	
+						}
+					}
+					x=x+1;	
+					var marker = L.marker([res.results[x].coordinates.latitude, res.results[x].coordinates.longitude]).addTo(map);
+					marker.bindPopup(res.results[x].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
+
+
+				}, x, res);
+			}
+		}, x);
 		}
-	}, x);
+	}else{
+	       newRow.appendChild(newData6);
+				newData7.appendChild(text7);
+				newRow.appendChild(newData7);
+				newData8.appendChild(text8);
+				if(results.results[i].value >= 0 && results.results[i].value <= 50){
+					newData8.style.backgroundColor = "green";
+				}else if(results.results[i].value >= 51 && results.results[i].value <= 100){
+					newData8.style.backgroundColor = "yellow";
+				}else if(results.results[i].value >= 101 && results.results[i].value <= 150){
+					newData8.style.backgroundColor = "orange";
+				}else if(results.results[i].value >= 151 && results.results[i].value <= 200){
+					newData8.style.backgroundColor = "red";
+				}else if(results.results[i].value >= 201 && results.results[i].value <= 300){
+					newData8.style.backgroundColor = "purple";
+					newData8.style.color = "white";
+				}else{
+					newData8.style.backgroundColor = "maroon";
+					newData8.style.color = "white";
+				}
+				newRow.appendChild(newData8);
+
+				document.getElementById("table").appendChild(newRow);	
+
+				url2 = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&city=" + results.results[i].city;
+				var res = results;
+				p = GetJSON(url2);
+				p.then(function(results){
+					var pm25 = 0;
+					var countPM25 = 0;
+					var pm10 = 0;
+					var countPM10 = 0;
+					var so2 = 0;
+					var countSO2 = 0;
+					var no2 = 0;
+					var countNO2 = 0;
+					var o3 = 0;
+					var countO3 = 0;
+					var co = 0;
+					var countCO = 0;
+					var bc = 0;
+					var countBC = 0;
+					for(j=0; j<results.results.length; j++){
+						if(results.results[j].parameter == "pm25"){
+							pm25 = pm25 + results.results[j].value;
+							countPM25 = countPM25 + 1;	
+						}
+						if(results.results[j].parameter == "pm10"){
+							pm10 = pm10 + results.results[j].value;
+							countPM10 = countPM10 + 1;	
+						}
+						if(results.results[j].parameter == "so2"){
+							so2 = so2 + results.results[j].value;
+							countSO2 = countSO2 + 1;	
+						}
+						if(results.results[j].parameter == "no2"){
+							no2 = no2 + results.results[j].value;
+							countNO2 = countNO2 + 1;	
+						}
+						if(results.results[j].parameter == "o3"){
+							o3 = o3 + results.results[j].value;
+							countO3 = countO3 + 1;	
+						}
+						if(results.results[j].parameter == "co"){
+							co = co + results.results[j].value;
+							countCO = countCO + 1;	
+						}
+						if(results.results[j].parameter == "bc"){
+							bc = bc + results.results[j].value;
+							countBC = countBC + 1;	
+						}
+					}
+					x=x+1;	
+					var marker = L.marker([res.results[x].coordinates.latitude, res.results[x].coordinates.longitude]).addTo(map);
+					marker.bindPopup(res.results[x].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
+
+
+				}, x, res);
+			}
+		}, x);
+		}
 }
 		
 		
