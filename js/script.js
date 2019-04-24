@@ -65,6 +65,21 @@ var callFunc = function(){
 			newData7.appendChild(text7);
 			newRow.appendChild(newData7);
 			newData8.appendChild(text8);
+			if(results.results[i].value >= 0 && results.results[i].value <= 50){
+				newData8.style.backgroundColor = "green";
+			}else if(results.results[i].value >= 51 && results.results[i].value <= 100){
+				newData8.style.backgroundColor = "yellow";
+			}else if(results.results[i].value >= 101 && results.results[i].value <= 150){
+				newData8.style.backgroundColor = "orange";
+			}else if(results.results[i].value >= 151 && results.results[i].value <= 200){
+				newData8.style.backgroundColor = "red";
+			}else if(results.results[i].value >= 201 && results.results[i].value <= 300){
+				newData8.style.backgroundColor = "purple";
+				newData8.style.color = "white";
+			}else{
+				newData8.style.backgroundColor = "maroon";
+				newData8.style.color = "white";
+			}
 			newRow.appendChild(newData8);
 						
 			document.getElementById("table").appendChild(newRow);	
@@ -131,6 +146,21 @@ var callFunc2 = function(){
 			newData7.appendChild(text7);
 			newRow.appendChild(newData7);
 			newData8.appendChild(text8);
+			if(results.results[i].value >= 0 && results.results[i].value <= 50){
+				newData8.style.backgroundColor = "green";
+			}else if(results.results[i].value >= 51 && results.results[i].value <= 100){
+				newData8.style.backgroundColor = "yellow";
+			}else if(results.results[i].value >= 101 && results.results[i].value <= 150){
+				newData8.style.backgroundColor = "orange";
+			}else if(results.results[i].value >= 151 && results.results[i].value <= 200){
+				newData8.style.backgroundColor = "red";
+			}else if(results.results[i].value >= 201 && results.results[i].value <= 300){
+				newData8.style.backgroundColor = "purple";
+				newData8.style.color = "white";
+			}else{
+				newData8.style.backgroundColor = "maroon";
+				newData8.style.color = "white";
+			}
 			newRow.appendChild(newData8);
 						
 			document.getElementById("table2").appendChild(newRow);	
@@ -201,6 +231,21 @@ map.on('dragend', function(){
 				newData7.appendChild(text7);
 				newRow.appendChild(newData7);
 				newData8.appendChild(text8);
+				if(results.results[i].value >= 0 && results.results[i].value <= 50){
+					newData8.style.backgroundColor = "green";
+				}else if(results.results[i].value >= 51 && results.results[i].value <= 100){
+					newData8.style.backgroundColor = "yellow";
+				}else if(results.results[i].value >= 101 && results.results[i].value <= 150){
+					newData8.style.backgroundColor = "orange";
+				}else if(results.results[i].value >= 151 && results.results[i].value <= 200){
+					newData8.style.backgroundColor = "red";
+				}else if(results.results[i].value >= 201 && results.results[i].value <= 300){
+					newData8.style.backgroundColor = "purple";
+					newData8.style.color = "white";
+				}else{
+					newData8.style.backgroundColor = "maroon";
+					newData8.style.color = "white";
+				}
 				newRow.appendChild(newData8);
 						
 				document.getElementById("row").appendChild(newRow);	
@@ -266,6 +311,21 @@ map2.on('dragend', function(){
 				newData7.appendChild(text7);
 				newRow.appendChild(newData7);
 				newData8.appendChild(text8);
+				if(results.results[i].value >= 0 && results.results[i].value <= 50){
+					newData8.style.backgroundColor = "green";
+				}else if(results.results[i].value >= 51 && results.results[i].value <= 100){
+					newData8.style.backgroundColor = "yellow";
+				}else if(results.results[i].value >= 101 && results.results[i].value <= 150){
+					newData8.style.backgroundColor = "orange";
+				}else if(results.results[i].value >= 151 && results.results[i].value <= 200){
+					newData8.style.backgroundColor = "red";
+				}else if(results.results[i].value >= 201 && results.results[i].value <= 300){
+					newData8.style.backgroundColor = "purple";
+					newData8.style.color = "white";
+				}else{
+					newData8.style.backgroundColor = "maroon";
+					newData8.style.color = "white";
+				}
 				newRow.appendChild(newData8);
 						
 				document.getElementById("table2").appendChild(newRow);	
@@ -275,53 +335,7 @@ map2.on('dragend', function(){
 			}
 		});		
 	}, 1000);
-});
-   
-/*			
-		function getRadius(){
-			var northEastLat = map.getBounds()._northEast.lat;
-			var northEastLon = map.getBounds()._northEast.lng;				
-			var southWestLat = map.getBounds()._southWest.lat;
-			var southWestLon = map.getBounds()._southWest.lng;
-						
-			var lat1 = northEastLat*Math.PI/180;
-			var lon1 = northEastLon*Math.PI/180;
-			var lat2 = southWestLat*Math.PI/180;
-			var lon2 = southWestLon*Math.PI/180;
-		
-			var dLat = southWestLat-northEastLat;
-			var dLon = southWestLon-northEastLon;
-
-			var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon/2) * Math.sin(dLon/2)
-			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-			var distance = 3958.8 * c;
-			var radius = distance/2;
-			var radiusMeters = radius * 1609.34;
-			vm.radius = radiusMeters;
-		}
-			
-		function getRadius2(){
-			var northEastLat = map2.getBounds()._northEast.lat;
-			var northEastLon = map2.getBounds()._northEast.lng;
-			var southWestLat = map2.getBounds()._southWest.lat;
-			var southWestLon = map2.getBounds()._southWest.lng;
-						
-			var lat1 = northEastLat*Math.PI/180;
-			var lon1 = northEastLon*Math.PI/180;
-			var lat2 = southWestLat*Math.PI/180;
-			var lon2 = southWestLon*Math.PI/180;
-		
-			var dLat = southWestLat-northEastLat;
-			var dLon = southWestLon-northEastLon;
-	
-			var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon/2) * Math.sin(dLon/2)
-			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-			var distance = 3958.8 * c;
-			var radius = distance/2;
-			var radiusMeters = radius * 1609.34;
-			vm.radius2 = radiusMeters;
-		}
-*/		
+});	
 		
 function getRadius() {		
         var radlat1 = Math.PI * map.getBounds()._northEast.lat/180;
