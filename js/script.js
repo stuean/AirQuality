@@ -351,7 +351,7 @@ map.on('dragend', function(){
 				}
 				newRow.appendChild(newData8);
 						
-				document.getElementById("row").appendChild(newRow);	
+				document.getElementById("table").appendChild(newRow);	
 				
 		url2 = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&city=" + results.results[i].city;
 		var res = results;
