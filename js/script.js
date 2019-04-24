@@ -138,8 +138,7 @@ var callFunc = function(){
 				}, x, res);
 			}
 		}, x);
-		}
-}
+	}
 		
 		
 var callFunc2 = function(){
