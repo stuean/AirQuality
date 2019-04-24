@@ -13,10 +13,9 @@ attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStree
 	
 var callFunc = function(){
 	map.panTo([vm.lat, vm.lon], 13);
-	var x = -1;
 	getRadius();
 	var rad = vm.radius;
-	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad;
+	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&date_from=2019-3-24&limit=1000";
 	var tableCheck = document.getElementById("table");
 	if(tableCheck.rows.length > 1){
 		table.innerHTML = "";
@@ -82,10 +81,13 @@ var callFunc = function(){
 
 				document.getElementById("table").appendChild(newRow);	
 
-				url2 = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&city=" + results.results[i].city;
-				var res = results;
-				p = GetJSON(url2);
-				p.then(function(results){
+				var arr = [];
+				for(j=0; j<results.results.length; j++){
+					if(results.results[i].city==results.results[j].city){
+						arr.push(results.results[j]);
+					}
+				}
+				
 					var pm25 = 0;
 					var countPM25 = 0;
 					var pm10 = 0;
@@ -100,44 +102,40 @@ var callFunc = function(){
 					var countCO = 0;
 					var bc = 0;
 					var countBC = 0;
-					for(j=0; j<results.results.length; j++){
-						if(results.results[j].parameter == "pm25"){
-							pm25 = pm25 + results.results[j].value;
+					for(j=0; j<arr.length; j++){
+						if(arr[j].parameter == "pm25"){
+							pm25 = pm25 + arr[j].value;
 							countPM25 = countPM25 + 1;	
 						}
-						if(results.results[j].parameter == "pm10"){
-							pm10 = pm10 + results.results[j].value;
+						if(arr[j].parameter == "pm10"){
+							pm10 = pm10 + arr[j].value;
 							countPM10 = countPM10 + 1;	
 						}
-						if(results.results[j].parameter == "so2"){
-							so2 = so2 + results.results[j].value;
+						if(arr[j].parameter == "so2"){
+							so2 = so2 + arr[j].value;
 							countSO2 = countSO2 + 1;	
 						}
-						if(results.results[j].parameter == "no2"){
-							no2 = no2 + results.results[j].value;
+						if(arr[j].parameter == "no2"){
+							no2 = no2 + arr[j].value;
 							countNO2 = countNO2 + 1;	
 						}
-						if(results.results[j].parameter == "o3"){
-							o3 = o3 + results.results[j].value;
+						if(arr[j].parameter == "o3"){
+							o3 = o3 + arr[j].value;
 							countO3 = countO3 + 1;	
 						}
-						if(results.results[j].parameter == "co"){
-							co = co + results.results[j].value;
+						if(arr[j].parameter == "co"){
+							co = co + arr[j].value;
 							countCO = countCO + 1;	
 						}
-						if(results.results[j].parameter == "bc"){
-							bc = bc + results.results[j].value;
+						if(arr[j].parameter == "bc"){
+							bc = bc + arr[j].value;
 							countBC = countBC + 1;	
 						}
 					}
-					x=x+1;	
-					var marker = L.marker([res.results[x].coordinates.latitude, res.results[x].coordinates.longitude]).addTo(map);
-					marker.bindPopup(res.results[x].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
-
-
-				}, x, res);
+					var marker = L.marker([results.results[i].coordinates.latitude, results.results[i].coordinates.longitude]).addTo(map);
+					marker.bindPopup(results.results[i].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
 			}
-		}, x);
+		});
 	}
 		
 		
@@ -145,9 +143,8 @@ var callFunc2 = function(){
 	
 	map2.panTo([vm.lat2, vm.lon2], 13);
 	getRadius2();
-	var x = -1;
 	var rad2 = vm.radius2;
-	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2;
+	var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2 + "&date_from=2019-3-24&limit=1000";
 	
 			
 	var tableCheck = document.getElementById("table2");
@@ -215,62 +212,61 @@ var callFunc2 = function(){
 						
 			document.getElementById("table2").appendChild(newRow);	
 				
-		url2 = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2 + "&city=" + results.results[i].city;
-		var res = results;
-		p = GetJSON(url2);
-		p.then(function(results){
-			var pm25 = 0;
-			var countPM25 = 0;
-			var pm10 = 0;
-			var countPM10 = 0;
-			var so2 = 0;
-			var countSO2 = 0;
-			var no2 = 0;
-			var countNO2 = 0;
-			var o3 = 0;
-			var countO3 = 0;
-			var co = 0;
-			var countCO = 0;
-			var bc = 0;
-			var countBC = 0;
-			for(j=0; j<results.results.length; j++){
-				if(results.results[j].parameter == "pm25"){
-					pm25 = pm25 + results.results[j].value;
-					countPM25 = countPM25 + 1;	
+				var arr = [];
+				for(j=0; j<results.results.length; j++){
+					if(results.results[i].city==results.results[j].city){
+						arr.push(results.results[j]);
+					}
 				}
-				if(results.results[j].parameter == "pm10"){
-					pm10 = pm10 + results.results[j].value;
-					countPM10 = countPM10 + 1;	
-				}
-				if(results.results[j].parameter == "so2"){
-					so2 = so2 + results.results[j].value;
-					countSO2 = countSO2 + 1;	
-				}
-				if(results.results[j].parameter == "no2"){
-					no2 = no2 + results.results[j].value;
-					countNO2 = countNO2 + 1;	
-				}
-				if(results.results[j].parameter == "o3"){
-					o3 = o3 + results.results[j].value;
-					countO3 = countO3 + 1;	
-				}
-				if(results.results[j].parameter == "co"){
-					co = co + results.results[j].value;
-					countCO = countCO + 1;	
-				}
-				if(results.results[j].parameter == "bc"){
-					bc = bc + results.results[j].value;
-					countBC = countBC + 1;	
-				}
-			}
-			x=x+1;	
-			var marker = L.marker([res.results[x].coordinates.latitude, res.results[x].coordinates.longitude]).addTo(map2);
-			marker.bindPopup(res.results[x].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
-			
-
-		}, x, res);
+				
+					var pm25 = 0;
+					var countPM25 = 0;
+					var pm10 = 0;
+					var countPM10 = 0;
+					var so2 = 0;
+					var countSO2 = 0;
+					var no2 = 0;
+					var countNO2 = 0;
+					var o3 = 0;
+					var countO3 = 0;
+					var co = 0;
+					var countCO = 0;
+					var bc = 0;
+					var countBC = 0;
+					for(j=0; j<arr.length; j++){
+						if(arr[j].parameter == "pm25"){
+							pm25 = pm25 + arr[j].value;
+							countPM25 = countPM25 + 1;	
+						}
+						if(arr[j].parameter == "pm10"){
+							pm10 = pm10 + arr[j].value;
+							countPM10 = countPM10 + 1;	
+						}
+						if(arr[j].parameter == "so2"){
+							so2 = so2 + arr[j].value;
+							countSO2 = countSO2 + 1;	
+						}
+						if(arr[j].parameter == "no2"){
+							no2 = no2 + arr[j].value;
+							countNO2 = countNO2 + 1;	
+						}
+						if(arr[j].parameter == "o3"){
+							o3 = o3 + arr[j].value;
+							countO3 = countO3 + 1;	
+						}
+						if(arr[j].parameter == "co"){
+							co = co + arr[j].value;
+							countCO = countCO + 1;	
+						}
+						if(arr[j].parameter == "bc"){
+							bc = bc + arr[j].value;
+							countBC = countBC + 1;	
+						}
+					}
+					var marker = L.marker([results.results[i].coordinates.latitude, results.results[i].coordinates.longitude]).addTo(map2);
+					marker.bindPopup(results.results[i].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
 		}
-	}, x);
+	});
 }
 
 		
@@ -284,9 +280,8 @@ map.on('dragend', function(){
 		vm.lat = map.getCenter().lat;
 		vm.lon = map.getCenter().lng;
 		getRadius();
-		var x = -1;
 		var rad = vm.radius;
-		var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad;
+		var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&date_from=2019-3-24&limit=1000";
 		var tableCheck = document.getElementById("table");
 		if(tableCheck.rows.length > 1){
 			table.innerHTML = "";
@@ -352,62 +347,61 @@ map.on('dragend', function(){
 						
 				document.getElementById("table").appendChild(newRow);	
 				
-		url2 = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat + "," + vm.lon + "&radius=" + rad + "&city=" + results.results[i].city;
-		var res = results;
-		p = GetJSON(url2);
-		p.then(function(results){
-			var pm25 = 0;
-			var countPM25 = 0;
-			var pm10 = 0;
-			var countPM10 = 0;
-			var so2 = 0;
-			var countSO2 = 0;
-			var no2 = 0;
-			var countNO2 = 0;
-			var o3 = 0;
-			var countO3 = 0;
-			var co = 0;
-			var countCO = 0;
-			var bc = 0;
-			var countBC = 0;
-			for(j=0; j<results.results.length; j++){
-				if(results.results[j].parameter == "pm25"){
-					pm25 = pm25 + results.results[j].value;
-					countPM25 = countPM25 + 1;	
+				var arr = [];
+				for(j=0; j<results.results.length; j++){
+					if(results.results[i].city==results.results[j].city){
+						arr.push(results.results[j]);
+					}
 				}
-				if(results.results[j].parameter == "pm10"){
-					pm10 = pm10 + results.results[j].value;
-					countPM10 = countPM10 + 1;	
-				}
-				if(results.results[j].parameter == "so2"){
-					so2 = so2 + results.results[j].value;
-					countSO2 = countSO2 + 1;	
-				}
-				if(results.results[j].parameter == "no2"){
-					no2 = no2 + results.results[j].value;
-					countNO2 = countNO2 + 1;	
-				}
-				if(results.results[j].parameter == "o3"){
-					o3 = o3 + results.results[j].value;
-					countO3 = countO3 + 1;	
-				}
-				if(results.results[j].parameter == "co"){
-					co = co + results.results[j].value;
-					countCO = countCO + 1;	
-				}
-				if(results.results[j].parameter == "bc"){
-					bc = bc + results.results[j].value;
-					countBC = countBC + 1;	
-				}
+				
+					var pm25 = 0;
+					var countPM25 = 0;
+					var pm10 = 0;
+					var countPM10 = 0;
+					var so2 = 0;
+					var countSO2 = 0;
+					var no2 = 0;
+					var countNO2 = 0;
+					var o3 = 0;
+					var countO3 = 0;
+					var co = 0;
+					var countCO = 0;
+					var bc = 0;
+					var countBC = 0;
+					for(j=0; j<arr.length; j++){
+						if(arr[j].parameter == "pm25"){
+							pm25 = pm25 + arr[j].value;
+							countPM25 = countPM25 + 1;	
+						}
+						if(arr[j].parameter == "pm10"){
+							pm10 = pm10 + arr[j].value;
+							countPM10 = countPM10 + 1;	
+						}
+						if(arr[j].parameter == "so2"){
+							so2 = so2 + arr[j].value;
+							countSO2 = countSO2 + 1;	
+						}
+						if(arr[j].parameter == "no2"){
+							no2 = no2 + arr[j].value;
+							countNO2 = countNO2 + 1;	
+						}
+						if(arr[j].parameter == "o3"){
+							o3 = o3 + arr[j].value;
+							countO3 = countO3 + 1;	
+						}
+						if(arr[j].parameter == "co"){
+							co = co + arr[j].value;
+							countCO = countCO + 1;	
+						}
+						if(arr[j].parameter == "bc"){
+							bc = bc + arr[j].value;
+							countBC = countBC + 1;	
+						}
+					}
+					var marker = L.marker([results.results[i].coordinates.latitude, results.results[i].coordinates.longitude]).addTo(map);
+					marker.bindPopup(results.results[i].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
 			}
-			x=x+1;	
-			var marker = L.marker([res.results[x].coordinates.latitude, res.results[x].coordinates.longitude]).addTo(map);
-			marker.bindPopup(res.results[x].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
-			
-
-		}, x, res);
-			}
-		}, x);			
+		});			
 	}, 1000);
 });
 map2.on('dragend', function(){
@@ -415,9 +409,8 @@ map2.on('dragend', function(){
 		vm.lat2 = map2.getCenter().lat;
 		vm.lon2 = map2.getCenter().lng;
 		getRadius2();
-		var x = -1;
 		var rad2 = vm.radius2;
-		var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2;	
+		var url = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2 + "&date_from=2019-3-24&limit=1000";	
 			
 		var tableCheck = document.getElementById("table2");
 		if(tableCheck.rows.length > 1){
@@ -485,62 +478,61 @@ map2.on('dragend', function(){
 						
 				document.getElementById("table2").appendChild(newRow);	
 				
-		url2 = "https://api.openaq.org/v1/measurements?coordinates=" + vm.lat2 + "," + vm.lon2 + "&radius=" + rad2 + "&city=" + results.results[i].city;
-		var res = results;
-		p = GetJSON(url2);
-		p.then(function(results){
-			var pm25 = 0;
-			var countPM25 = 0;
-			var pm10 = 0;
-			var countPM10 = 0;
-			var so2 = 0;
-			var countSO2 = 0;
-			var no2 = 0;
-			var countNO2 = 0;
-			var o3 = 0;
-			var countO3 = 0;
-			var co = 0;
-			var countCO = 0;
-			var bc = 0;
-			var countBC = 0;
-			for(j=0; j<results.results.length; j++){
-				if(results.results[j].parameter == "pm25"){
-					pm25 = pm25 + results.results[j].value;
-					countPM25 = countPM25 + 1;	
+				var arr = [];
+				for(j=0; j<results.results.length; j++){
+					if(results.results[i].city==results.results[j].city){
+						arr.push(results.results[j]);
+					}
 				}
-				if(results.results[j].parameter == "pm10"){
-					pm10 = pm10 + results.results[j].value;
-					countPM10 = countPM10 + 1;	
-				}
-				if(results.results[j].parameter == "so2"){
-					so2 = so2 + results.results[j].value;
-					countSO2 = countSO2 + 1;	
-				}
-				if(results.results[j].parameter == "no2"){
-					no2 = no2 + results.results[j].value;
-					countNO2 = countNO2 + 1;	
-				}
-				if(results.results[j].parameter == "o3"){
-					o3 = o3 + results.results[j].value;
-					countO3 = countO3 + 1;	
-				}
-				if(results.results[j].parameter == "co"){
-					co = co + results.results[j].value;
-					countCO = countCO + 1;	
-				}
-				if(results.results[j].parameter == "bc"){
-					bc = bc + results.results[j].value;
-					countBC = countBC + 1;	
-				}
+				
+					var pm25 = 0;
+					var countPM25 = 0;
+					var pm10 = 0;
+					var countPM10 = 0;
+					var so2 = 0;
+					var countSO2 = 0;
+					var no2 = 0;
+					var countNO2 = 0;
+					var o3 = 0;
+					var countO3 = 0;
+					var co = 0;
+					var countCO = 0;
+					var bc = 0;
+					var countBC = 0;
+					for(j=0; j<arr.length; j++){
+						if(arr[j].parameter == "pm25"){
+							pm25 = pm25 + arr[j].value;
+							countPM25 = countPM25 + 1;	
+						}
+						if(arr[j].parameter == "pm10"){
+							pm10 = pm10 + arr[j].value;
+							countPM10 = countPM10 + 1;	
+						}
+						if(arr[j].parameter == "so2"){
+							so2 = so2 + arr[j].value;
+							countSO2 = countSO2 + 1;	
+						}
+						if(arr[j].parameter == "no2"){
+							no2 = no2 + arr[j].value;
+							countNO2 = countNO2 + 1;	
+						}
+						if(arr[j].parameter == "o3"){
+							o3 = o3 + arr[j].value;
+							countO3 = countO3 + 1;	
+						}
+						if(arr[j].parameter == "co"){
+							co = co + arr[j].value;
+							countCO = countCO + 1;	
+						}
+						if(arr[j].parameter == "bc"){
+							bc = bc + arr[j].value;
+							countBC = countBC + 1;	
+						}
+					}
+					var marker = L.marker([results.results[i].coordinates.latitude, results.results[i].coordinates.longitude]).addTo(map2);
+					marker.bindPopup(results.results[i].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
 			}
-			x=x+1;	
-			var marker = L.marker([res.results[x].coordinates.latitude, res.results[x].coordinates.longitude]).addTo(map2);
-			marker.bindPopup(res.results[x].city + '          ' + ' pm25: ' + pm25/countPM25 + ' pm10: ' + pm10/countPM10 + ' so2: ' + so2/countSO2 + ' no2: ' + no2/countNO2 + ' o3: ' + o3/countO3 + ' co: ' + co/countCO + ' bc: ' + bc/countBC);
-			
-
-		}, x, res);
-			}
-		}, x);		
+		});		
 	}, 1000);
 });	
 		
