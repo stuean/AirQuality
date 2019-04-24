@@ -24,6 +24,26 @@
 	#table2{
 		float: right;
 	}
+	#green{
+		background-color: green;
+	}
+	#yellow{
+		background-color: yellow;
+	}
+	#orange{
+		background-color: orange;
+	}
+	#red{
+		background-color: red;
+	}
+	#purple{
+		background-color: purple;
+		color: white;
+	}
+	#maroon{
+		background-color: maroon;
+		color: white;
+	}
 	body{
 		background-color: #ffd19f;
 		margin: 0;
