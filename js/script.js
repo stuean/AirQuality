@@ -102,31 +102,31 @@ var callFunc = function(){
 				var bc = 0;
 				var countBC = 0;
 				for(j=0; j<results.results.length; j++){
-					if(results.results[j].parameter = "pm25"){
+					if(results.results[j].parameter == "pm25"){
 						pm25 = pm25 + results.results[j].value;
 						countPM25 = countPM25 + 1;	
 					}
-					if(results.results[j].parameter = "pm10"){
+					if(results.results[j].parameter == "pm10"){
 						pm10 = pm10 + results.results[j].value;
 						countPM10 = countPM10 + 1;	
 					}
-					if(results.results[j].parameter = "so2"){
+					if(results.results[j].parameter == "so2"){
 						so2 = so2 + results.results[j].value;
 						countSO2 = countSO2 + 1;	
 					}
-					if(results.results[j].parameter = "no2"){
+					if(results.results[j].parameter == "no2"){
 						no2 = no2 + results.results[j].value;
 						countNO2 = countNO2 + 1;	
 					}
-					if(results.results[j].parameter = "o3"){
+					if(results.results[j].parameter == "o3"){
 						o3 = o3 + results.results[j].value;
 						countO3 = countO3 + 1;	
 					}
-					if(results.results[j].parameter = "co"){
+					if(results.results[j].parameter == "co"){
 						co = co + results.results[j].value;
 						countCO = countCO + 1;	
 					}
-					if(results.results[j].parameter = "bc"){
+					if(results.results[j].parameter == "bc"){
 						bc = bc + results.results[j].value;
 						countBC = countBC + 1;	
 					}
@@ -235,31 +235,31 @@ var callFunc2 = function(){
 			var bc = 0;
 			var countBC = 0;
 			for(j=0; j<results.results.length; j++){
-				if(results.results[j].parameter = "pm25"){
+				if(results.results[j].parameter == "pm25"){
 					pm25 = pm25 + results.results[j].value;
 					countPM25 = countPM25 + 1;	
 				}
-				if(results.results[j].parameter = "pm10"){
+				if(results.results[j].parameter == "pm10"){
 					pm10 = pm10 + results.results[j].value;
 					countPM10 = countPM10 + 1;	
 				}
-				if(results.results[j].parameter = "so2"){
+				if(results.results[j].parameter == "so2"){
 					so2 = so2 + results.results[j].value;
 					countSO2 = countSO2 + 1;	
 				}
-				if(results.results[j].parameter = "no2"){
+				if(results.results[j].parameter == "no2"){
 					no2 = no2 + results.results[j].value;
 					countNO2 = countNO2 + 1;	
 				}
-				if(results.results[j].parameter = "o3"){
+				if(results.results[j].parameter == "o3"){
 					o3 = o3 + results.results[j].value;
 					countO3 = countO3 + 1;	
 				}
-				if(results.results[j].parameter = "co"){
+				if(results.results[j].parameter == "co"){
 					co = co + results.results[j].value;
 					countCO = countCO + 1;	
 				}
-				if(results.results[j].parameter = "bc"){
+				if(results.results[j].parameter == "bc"){
 					bc = bc + results.results[j].value;
 					countBC = countBC + 1;	
 				}
@@ -372,31 +372,31 @@ map.on('dragend', function(){
 			var bc = 0;
 			var countBC = 0;
 			for(j=0; j<results.results.length; j++){
-				if(results.results[j].parameter = "pm25"){
+				if(results.results[j].parameter == "pm25"){
 					pm25 = pm25 + results.results[j].value;
 					countPM25 = countPM25 + 1;	
 				}
-				if(results.results[j].parameter = "pm10"){
+				if(results.results[j].parameter == "pm10"){
 					pm10 = pm10 + results.results[j].value;
 					countPM10 = countPM10 + 1;	
 				}
-				if(results.results[j].parameter = "so2"){
+				if(results.results[j].parameter == "so2"){
 					so2 = so2 + results.results[j].value;
 					countSO2 = countSO2 + 1;	
 				}
-				if(results.results[j].parameter = "no2"){
+				if(results.results[j].parameter == "no2"){
 					no2 = no2 + results.results[j].value;
 					countNO2 = countNO2 + 1;	
 				}
-				if(results.results[j].parameter = "o3"){
+				if(results.results[j].parameter == "o3"){
 					o3 = o3 + results.results[j].value;
 					countO3 = countO3 + 1;	
 				}
-				if(results.results[j].parameter = "co"){
+				if(results.results[j].parameter == "co"){
 					co = co + results.results[j].value;
 					countCO = countCO + 1;	
 				}
-				if(results.results[j].parameter = "bc"){
+				if(results.results[j].parameter == "bc"){
 					bc = bc + results.results[j].value;
 					countBC = countBC + 1;	
 				}
@@ -505,31 +505,31 @@ map2.on('dragend', function(){
 			var bc = 0;
 			var countBC = 0;
 			for(j=0; j<results.results.length; j++){
-				if(results.results[j].parameter = "pm25"){
+				if(results.results[j].parameter == "pm25"){
 					pm25 = pm25 + results.results[j].value;
 					countPM25 = countPM25 + 1;	
 				}
-				if(results.results[j].parameter = "pm10"){
+				if(results.results[j].parameter == "pm10"){
 					pm10 = pm10 + results.results[j].value;
 					countPM10 = countPM10 + 1;	
 				}
-				if(results.results[j].parameter = "so2"){
+				if(results.results[j].parameter == "so2"){
 					so2 = so2 + results.results[j].value;
 					countSO2 = countSO2 + 1;	
 				}
-				if(results.results[j].parameter = "no2"){
+				if(results.results[j].parameter == "no2"){
 					no2 = no2 + results.results[j].value;
 					countNO2 = countNO2 + 1;	
 				}
-				if(results.results[j].parameter = "o3"){
+				if(results.results[j].parameter == "o3"){
 					o3 = o3 + results.results[j].value;
 					countO3 = countO3 + 1;	
 				}
-				if(results.results[j].parameter = "co"){
+				if(results.results[j].parameter == "co"){
 					co = co + results.results[j].value;
 					countCO = countCO + 1;	
 				}
-				if(results.results[j].parameter = "bc"){
+				if(results.results[j].parameter == "bc"){
 					bc = bc + results.results[j].value;
 					countBC = countBC + 1;	
 				}
